@@ -9,8 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Baseline, Bold, Palette, Sparkles, Copy, Loader2, MoveHorizontal } from 'lucide-react';
-import { getFontRecommendation } from '@/ai/flows/font-recommendation';
+import { Baseline, Bold, Palette, Copy, MoveHorizontal } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from '../ui/separator';
 
@@ -35,25 +34,6 @@ const fontWeights = [
 export function FontPanel({ fontConfig, onUpdate, onSetLivePreview }: FontPanelProps) {
   const { toast } = useToast();
 
-  const handleGetRecommendation = async () => {
-    onUpdate({ isLoadingRecommendation: true });
-    try {
-      const result = await getFontRecommendation({ fontName: fontConfig.name });
-      onUpdate({ aiRecommendation: result.recommendation, isLoadingRecommendation: false });
-      toast({
-        title: "AI Recommendation Ready",
-        description: `Generated recommendation for ${fontConfig.name}.`,
-      });
-    } catch (error) {
-      console.error("Failed to get AI recommendation:", error);
-      onUpdate({ isLoadingRecommendation: false, aiRecommendation: "Error fetching recommendation." });
-      toast({
-        variant: "destructive",
-        title: "AI Recommendation Error",
-        description: `Could not get recommendation for ${fontConfig.name}.`,
-      });
-    }
-  };
 
   const previewStyle: React.CSSProperties = {
     fontFamily: fontConfig.fontFamilyQuery,
@@ -156,24 +136,6 @@ export function FontPanel({ fontConfig, onUpdate, onSetLivePreview }: FontPanelP
             </AccordionContent>
           </AccordionItem>
 
-          <AccordionItem value="ai-recommendation">
-            <AccordionTrigger className="text-sm font-medium">AI Recommendation</AccordionTrigger>
-            <AccordionContent className="space-y-2 pt-2">
-              <Button onClick={handleGetRecommendation} disabled={fontConfig.isLoadingRecommendation || !fontConfig.name} className="w-full" variant="outline">
-                {fontConfig.isLoadingRecommendation ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : (
-                  <Sparkles className="mr-2 h-4 w-4" />
-                )}
-                Get Suggestion
-              </Button>
-              {fontConfig.aiRecommendation && (
-                <p className="text-sm text-muted-foreground p-2 border rounded-md bg-muted/20">
-                  {fontConfig.aiRecommendation}
-                </p>
-              )}
-            </AccordionContent>
-          </AccordionItem>
         </Accordion>
       </CardContent>
       <Separator />

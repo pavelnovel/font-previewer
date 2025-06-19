@@ -5,8 +5,6 @@ export interface FontConfig {
   weight: number; // e.g., 400, 700
   letterSpacing: number; // in px
   color: string; // hex code, e.g., '#RRGGBB'
-  aiRecommendation?: string;
-  isLoadingRecommendation?: boolean;
   fontFamilyQuery: string; // Stores the sanitized font name for CSS font-family
 }
 

@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: 'Font Previewer',
-  description: 'Preview Google Fonts side-by-side and get AI recommendations.',
+  description: 'Preview and compare Google Fonts side-by-side with customizable settings.',
 };
 
 export default function RootLayout({

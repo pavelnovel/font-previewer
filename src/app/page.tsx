@@ -8,10 +8,10 @@ import { DEFAULT_SAMPLE_TEXT } from '@/components/font-previewer/types';
 import { useToast } from "@/hooks/use-toast";
 
 const initialFontConfigs: FontConfig[] = [
-  { id: 'panel-1', name: 'Roboto', size: 24, weight: 400, letterSpacing: 0, color: '#333333', fontFamilyQuery: 'Roboto', aiRecommendation: '', isLoadingRecommendation: false },
-  { id: 'panel-2', name: 'Open Sans', size: 24, weight: 400, letterSpacing: 0, color: '#333333', fontFamilyQuery: 'Open Sans', aiRecommendation: '', isLoadingRecommendation: false },
-  { id: 'panel-3', name: 'Lato', size: 24, weight: 400, letterSpacing: 0, color: '#333333', fontFamilyQuery: 'Lato', aiRecommendation: '', isLoadingRecommendation: false },
-  { id: 'panel-4', name: 'Montserrat', size: 24, weight: 400, letterSpacing: 0, color: '#333333', fontFamilyQuery: 'Montserrat', aiRecommendation: '', isLoadingRecommendation: false },
+  { id: 'panel-1', name: 'Roboto', size: 24, weight: 400, letterSpacing: 0, color: '#333333', fontFamilyQuery: 'Roboto' },
+  { id: 'panel-2', name: 'Open Sans', size: 24, weight: 400, letterSpacing: 0, color: '#333333', fontFamilyQuery: 'Open Sans' },
+  { id: 'panel-3', name: 'Lato', size: 24, weight: 400, letterSpacing: 0, color: '#333333', fontFamilyQuery: 'Lato' },
+  { id: 'panel-4', name: 'Montserrat', size: 24, weight: 400, letterSpacing: 0, color: '#333333', fontFamilyQuery: 'Montserrat' },
 ];
 
 export default function FontPreviewerPage() {
@@ -79,7 +79,7 @@ export default function FontPreviewerPage() {
     <div className="min-h-screen flex flex-col bg-background text-foreground p-4 md:p-8">
       <header className="mb-8 text-center">
         <h1 className="text-4xl font-headline font-bold text-primary">Font Previewer</h1>
-        <p className="text-muted-foreground">Experiment with Google Fonts and get AI-powered insights.</p>
+        <p className="text-muted-foreground">Experiment with Google Fonts and preview them in real-time.</p>
       </header>
 
       <main className="flex-grow">
@@ -97,6 +97,85 @@ export default function FontPreviewerPage() {
           </div>
         </section>
 
+        <section className="mb-12">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-card border rounded-lg p-8 shadow-sm">
+              <h2 className="text-2xl font-headline font-semibold mb-6 text-primary/90">How to Use This Tool</h2>
+              
+              <div className="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                  <h3 className="text-lg font-semibold mb-3 text-primary/80">Getting Started</h3>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Each panel shows a different Google Font with customizable settings</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Change font family, size, weight, letter spacing, and color</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Click "Use for Live Preview" to test a font with custom text</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Compare multiple fonts side-by-side to find the perfect match</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold mb-3 text-primary/80">Pro Tips</h3>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Try different weights (100-900) to see font variations</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Adjust letter spacing for better readability</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Test with your actual content in the live preview</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>Consider contrast and readability for your use case</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="border-t pt-6">
+                <h3 className="text-lg font-semibold mb-3 text-primary/80">About Google Fonts</h3>
+                <p className="text-muted-foreground mb-4 leading-relaxed">
+                  Google Fonts is a free, open-source library of over 1,400 font families that you can use in your web projects. 
+                  These fonts are optimized for the web, load quickly, and are maintained by Google. They're perfect for websites, 
+                  applications, and any digital project where typography matters.
+                </p>
+                <div className="flex flex-wrap gap-4 items-center">
+                  <a 
+                    href="https://fonts.google.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
+                  >
+                    <span>Browse All Google Fonts</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                  <span className="text-sm text-muted-foreground">
+                    Discover fonts by category, language, and popularity
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section>
           <h2 className="text-2xl font-headline font-semibold mb-4 text-primary/90">Live Text Preview</h2>
           <LivePreviewBox
@@ -108,7 +187,7 @@ export default function FontPreviewerPage() {
       </main>
 
       <footer className="mt-12 text-center text-sm text-muted-foreground">
-        <p>&copy; {new Date().getFullYear()} Font Previewer. Powered by Next.js and Genkit.</p>
+        <p>&copy; {new Date().getFullYear()} Font Previewer. Powered by Next.js.</p>
       </footer>
     </div>
   );

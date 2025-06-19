@@ -6,7 +6,6 @@
 - Font Adjustment: Provide input fields to adjust font properties for each font, such as size, weight, letter spacing, and color.
 - Live Text Input: Add text input to define a text string and apply the current styles of any of the previewed fonts to it, as a "live" preview in a dedicated text box.
 - Font Import: Allow users to input a Google Fonts URL directly to import fonts.
-- AI Font Recommendation: Use an AI tool to evaluate and report on each font, to suggest what type of content it is suitable for.
 
 ## Style Guidelines:
 
