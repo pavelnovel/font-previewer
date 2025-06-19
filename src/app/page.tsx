@@ -78,8 +78,8 @@ export default function FontPreviewerPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground p-4 md:p-8">
       <header className="mb-8 text-center">
-        <h1 className="text-4xl font-headline font-bold text-primary">Font Previewer</h1>
-        <p className="text-muted-foreground">Experiment with Google Fonts and preview them in real-time.</p>
+        <h1 className="text-4xl font-headline font-bold text-primary">Compare Google Fonts Side-by-Side</h1>
+        <p className="text-lg text-muted-foreground mt-2">Preview and test 1,400+ Google Fonts with real-time customization. Find the perfect typography for your project.</p>
       </header>
 
       <main className="flex-grow">
@@ -187,7 +187,16 @@ export default function FontPreviewerPage() {
       </main>
 
       <footer className="mt-12 text-center text-sm text-muted-foreground">
-        <p>&copy; {new Date().getFullYear()} Font Previewer. Powered by Next.js.</p>
+        <p>&copy; {new Date().getFullYear()} Simple Font Compare - Free Google Fonts Comparison Tool</p>
+        <p className="mt-2">
+          <a href="https://fonts.google.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+            Powered by Google Fonts
+          </a>
+          {' • '}
+          <a href="https://github.com/pavelnovel/font-previewer" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+            Open Source
+          </a>
+        </p>
       </footer>
     </div>
   );
