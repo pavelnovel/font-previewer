@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Analytics Integration</title>
+</head>
+<body>
+    <h1>Analytics Test Page</h1>
+    <p>Open the browser console to see analytics events.</p>
+    
+    <!-- Update this URL to your actual analytics server -->
+    <script src="https://analytics.yourdomain.com/t.js" data-site="font-previewer-test"></script>
+    
+    <button onclick="testEvent()">Test Event</button>
+    
+    <script>
+        // Wait for analytics to load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (window.b2bAnalytics) {
+                    console.log('✅ Analytics loaded successfully!');
+                    
+                    // Test tracking a font selection
+                    window.b2bAnalytics.trackEvent('font_selected', {
+                        font_name: 'Test Font',
+                        panel_id: 'test-panel',
+                        tool: 'font-previewer'
+                    });
+                    
+                    console.log('📊 Font selection event sent');
+                } else {
+                    console.error('❌ Analytics not loaded. Check your analytics URL.');
+                }
+            }, 1000);
+        });
+        
+        function testEvent() {
+            if (window.b2bAnalytics) {
+                window.b2bAnalytics.trackEvent('test_event', {
+                    timestamp: new Date().toISOString(),
+                    tool: 'font-previewer'
+                });
+                console.log('📊 Test event sent');
+            } else {
+                console.error('❌ Analytics not available');
+            }
+        }
+    </script>
+</body>
+</html>

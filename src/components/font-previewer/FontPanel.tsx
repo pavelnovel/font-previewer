@@ -12,6 +12,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Baseline, Bold, Palette, Copy, MoveHorizontal } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from '../ui/separator';
+import { Combobox } from '../ui/combobox';
 
 interface FontPanelProps {
   fontConfig: FontConfig;
@@ -29,6 +30,24 @@ const fontWeights = [
   { label: 'Bold (700)', value: 700 },
   { label: 'Extra Bold (800)', value: 800 },
   { label: 'Black (900)', value: 900 },
+];
+
+const popularFonts = [
+  { label: "Roboto", value: "Roboto" },
+  { label: "Open Sans", value: "Open Sans" },
+  { label: "Lato", value: "Lato" },
+  { label: "Montserrat", value: "Montserrat" },
+  { label: "Oswald", value: "Oswald" },
+  { label: "Source Sans Pro", value: "Source Sans Pro" },
+  { label: "Merriweather", value: "Merriweather" },
+  { label: "PT Sans", value: "PT Sans" },
+  { label: "Playfair Display", value: "Playfair Display" },
+  { label: "Nunito", value: "Nunito" },
+  { label: "Lora", value: "Lora" },
+  { label: "Poppins", value: "Poppins" },
+  { label: "Inter", value: "Inter" },
+  { label: "Raleway", value: "Raleway" },
+  { label: "Slabo 27px", value: "Slabo 27px" },
 ];
 
 export function FontPanel({ fontConfig, onUpdate, onSetLivePreview }: FontPanelProps) {
@@ -67,13 +86,13 @@ export function FontPanel({ fontConfig, onUpdate, onSetLivePreview }: FontPanelP
             <AccordionContent className="space-y-4 pt-2">
               <div>
                 <Label htmlFor={`${fontConfig.id}-fontName`} className="text-xs">Font Name (from Google Fonts)</Label>
-                <Input
-                  id={`${fontConfig.id}-fontName`}
-                  type="text"
+                <Combobox
+                  options={popularFonts}
                   value={fontConfig.name}
-                  onChange={(e) => onUpdate({ name: e.target.value })}
-                  placeholder="e.g., Roboto"
-                  className="mt-1"
+                  onChange={(value) => onUpdate({ name: value })}
+                  placeholder="Select a font..."
+                  searchPlaceholder="Search fonts..."
+                  notFoundMessage="Font not found."
                 />
               </div>
 

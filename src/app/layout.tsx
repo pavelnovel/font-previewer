@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
+import { AnalyticsWrapper } from '@/components/analytics/AnalyticsWrapper';
 
 export const metadata: Metadata = {
   title: 'Font Previewer - Compare Google Fonts in Real-Time | Simple Font Compare',
@@ -72,6 +73,7 @@ export default function RootLayout({
       <body className="font-body antialiased">
         {children}
         <Toaster />
+        <AnalyticsWrapper />
       </body>
     </html>
   );

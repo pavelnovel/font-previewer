@@ -6,6 +6,7 @@ import { LivePreviewBox } from '@/components/font-previewer/LivePreviewBox';
 import type { FontConfig } from '@/components/font-previewer/types';
 import { DEFAULT_SAMPLE_TEXT } from '@/components/font-previewer/types';
 import { useToast } from "@/hooks/use-toast";
+import { useAnalytics } from '@/components/analytics/Analytics';
 
 const initialFontConfigs: FontConfig[] = [
   { id: 'panel-1', name: 'Roboto', size: 24, weight: 400, letterSpacing: 0, color: '#333333', fontFamilyQuery: 'Roboto' },
@@ -20,6 +21,7 @@ export default function FontPreviewerPage() {
   const [activeFontForLivePreview, setActiveFontForLivePreview] = useState<FontConfig | null>(null);
   const [loadedFonts, setLoadedFonts] = useState<Set<string>>(new Set());
   const { toast } = useToast();
+  const { trackFontChange, trackFontComparison, trackFeatureUsage, trackTextPreview } = useAnalytics();
 
   const sanitizeFontNameForCSS = (fontName: string) => {
     // Replace spaces with '+' for Google Fonts API, keep spaces for CSS font-family
@@ -45,6 +47,9 @@ export default function FontPreviewerPage() {
 
   useEffect(() => {
     initialFontConfigs.forEach(config => loadGoogleFont(config.name));
+    // Track initial font comparison
+    const fontNames = initialFontConfigs.map(config => config.name);
+    trackFontComparison(fontNames);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Load initial fonts once on mount
 
@@ -57,6 +62,22 @@ export default function FontPreviewerPage() {
       if (newConfig.name && newConfig.name !== oldConfig.name) {
         loadGoogleFont(newConfig.name);
         updatedConfigs[index].fontFamilyQuery = sanitizeFontNameForCSS(newConfig.name);
+        // Track font change
+        trackFontChange(newConfig.name, updatedConfigs[index].id);
+      }
+      
+      // Track feature usage for other changes
+      if (newConfig.size !== undefined && newConfig.size !== oldConfig.size) {
+        trackFeatureUsage('font_size', newConfig.size);
+      }
+      if (newConfig.weight !== undefined && newConfig.weight !== oldConfig.weight) {
+        trackFeatureUsage('font_weight', newConfig.weight);
+      }
+      if (newConfig.letterSpacing !== undefined && newConfig.letterSpacing !== oldConfig.letterSpacing) {
+        trackFeatureUsage('letter_spacing', newConfig.letterSpacing);
+      }
+      if (newConfig.color !== undefined && newConfig.color !== oldConfig.color) {
+        trackFeatureUsage('font_color', newConfig.color);
       }
       
       // If this font was active for live preview, update that too
@@ -69,10 +90,12 @@ export default function FontPreviewerPage() {
   
   const handleSetLivePreviewFont = (config: FontConfig) => {
     setActiveFontForLivePreview(config);
-     toast({
-        title: "Live Preview Updated",
-        description: `Live preview now uses ${config.name}.`,
-      });
+    toast({
+      title: "Live Preview Updated",
+      description: `Live preview now uses ${config.name}.`,
+    });
+    // Track live preview usage
+    trackFeatureUsage('live_preview_font', config.name);
   };
 
   return (
@@ -180,7 +203,13 @@ export default function FontPreviewerPage() {
           <h2 className="text-2xl font-headline font-semibold mb-4 text-primary/90">Live Text Preview</h2>
           <LivePreviewBox
             liveText={livePreviewText}
-            onTextChange={setLivePreviewText}
+            onTextChange={(text) => {
+              setLivePreviewText(text);
+              // Track text preview changes (debounced would be better in production)
+              if (text.length !== livePreviewText.length) {
+                trackTextPreview(text.length);
+              }
+            }}
             activeFontConfig={activeFontForLivePreview}
           />
         </section>
