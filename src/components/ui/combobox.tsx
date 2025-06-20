@@ -45,17 +45,22 @@ export function Combobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between"
+          className="w-full justify-between font-normal"
         >
           {value
-            ? options.find((option) => option.value === value)?.label
+            ? options.find((option) => option.value.toLowerCase() === value.toLowerCase())
+                ?.label
             : placeholder}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0">
+      <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
         <Command>
-          <CommandInput placeholder={searchPlaceholder} />
+          <CommandInput 
+            placeholder={searchPlaceholder} 
+            value={value} 
+            onValueChange={onChange} 
+          />
           <CommandList>
             <CommandEmpty>{notFoundMessage}</CommandEmpty>
             <CommandGroup>
